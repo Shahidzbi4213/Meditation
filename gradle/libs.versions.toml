@@ -1,10 +1,13 @@
 [versions]
 agp = "8.3.1"
-kotlin = "1.9.0"
+core = "1.9.63"
+kotlin = "1.9.22"
 coreKtx = "1.12.0"
+ksp = "1.9.63"
+kspVersion = "1.9.22-1.0.17"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
-composeBom = "2024.02.02"
+composeBom = "2024.03.00"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -16,8 +19,12 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+navigationCore = { module = "io.github.raamcosta.compose-destinations:core", version.ref = "core" }
+navigationKsp =  { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "ksp" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 
