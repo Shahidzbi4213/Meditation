@@ -1,10 +1,10 @@
 [versions]
 agp = "8.3.1"
 core = "1.9.63"
-kotlin = "1.9.22"
+kotlin = "1.9.23"
 coreKtx = "1.12.0"
 ksp = "1.9.63"
-kspVersion = "1.9.22-1.0.17"
+kspVersion = "1.9.23-1.0.19"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 composeBom = "2024.03.00"
