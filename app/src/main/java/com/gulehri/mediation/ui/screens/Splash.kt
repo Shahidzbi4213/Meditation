@@ -12,13 +12,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gulehri.mediation.R
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.spec.NavGraphSpec
 
 /*
  * Created by Shahid Iqbal on 3/24/2024.
  */
 
-
-@Preview
+@Destination(start = true)
 @Composable
 fun SplashScreen() {
 

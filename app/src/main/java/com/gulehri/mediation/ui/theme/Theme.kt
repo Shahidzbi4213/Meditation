@@ -1,6 +1,7 @@
 package com.gulehri.mediation.ui.theme
 
 import android.app.Activity
+import android.os.Build
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -27,6 +28,7 @@ fun MediationTheme(
             window.statusBarColor = android.graphics.Color.TRANSPARENT
         }
     }
+
 
     MaterialTheme(
         colorScheme = LightColorScheme,
