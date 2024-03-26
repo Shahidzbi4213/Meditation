@@ -1,7 +1,6 @@
 package com.gulehri.mediation.ui.theme
 
 import android.app.Activity
-import android.os.Build
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -12,7 +11,8 @@ private val LightColorScheme = lightColorScheme(
 
     background = MainColor,
     onSurface = WhiteColor,
-    onBackground = WhiteColor
+    onBackground = WhiteColor,
+    primaryContainer = PrimaryContainer
 
 )
 

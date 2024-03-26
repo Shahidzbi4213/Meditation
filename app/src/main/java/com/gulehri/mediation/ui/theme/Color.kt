@@ -5,3 +5,4 @@ import androidx.compose.ui.graphics.Color
 
 val MainColor = Color(0xFF1E1E1E)
 val WhiteColor = Color(0xFFFFFFFF)
+val PrimaryContainer = Color(0xFF7C9A92)
