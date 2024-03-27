@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">Mediation</string>
     <string name="welcome">Welcome</string>
-    <string name="stay_focused">Do meditation. Stay focused.\nLive a healthy life.</string>
+    <string name="stay_focused">Do meditation. Stay focused.Live a healthy life.</string>
     <string name="login_with_email">Login With Email</string>
     <string name="not_having_account">Don’t have an account?</string>
     <string name="sign_up">SignUp</string>
+    <string name="sigin">Sign In</string>
+    <string name="sigin_now">Sign in now to access your exercises and saved music.</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
 </resources>

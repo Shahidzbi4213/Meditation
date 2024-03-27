@@ -27,12 +27,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gulehri.mediation.R
+import com.gulehri.mediation.ui.screens.destinations.OnBoardingScreenDestination
 import com.gulehri.mediation.ui.theme.PrimaryContainer
 import com.gulehri.mediation.ui.theme.Typography
+import com.gulehri.mediation.ui.utils.Extensions.navigateNext
+import com.gulehri.mediation.ui.utils.NoRippleInteractionSource
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 /*
  * Created by Shahid Iqbal on 3/26/2024.
@@ -42,6 +47,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 @Composable
 fun OnBoardingScreen(
     modifier: Modifier = Modifier,
+    navigator: DestinationsNavigator,
 ) {
 
 
@@ -62,8 +68,10 @@ fun OnBoardingScreen(
             modifier = modifier
                 .fillMaxWidth()
                 .wrapContentWidth()
-                .padding(top = 70.dp)
-                .scrollable(rememberScrollState(), orientation = Orientation.Vertical),
+                .scrollable(
+                    rememberScrollState(),
+                    orientation = Orientation.Vertical
+                ),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -75,7 +83,8 @@ fun OnBoardingScreen(
             )
 
             Text(
-                text = stringResource(id = R.string.welcome).uppercase(),
+                text = stringResource(id = R.string.welcome)
+                    .uppercase(),
                 style = Typography.titleLarge,
                 color = Color.White
             )
@@ -84,14 +93,23 @@ fun OnBoardingScreen(
             Text(
                 text = stringResource(id = R.string.stay_focused),
                 style = Typography.titleMedium,
-                color = Color.White
+                color = Color.White,
+                modifier = Modifier.fillMaxWidth(0.7f)
             )
 
             Spacer(modifier = Modifier.height(40.dp))
 
 
             Button(
-                onClick = { },
+                onClick = {
+                    /*navigator.navigateNext(
+                        current = OnBoardingScreenDestination,
+                        next =,
+                        canPopup = true,
+                        inclusive = true
+                    )*/
+                },
+                interactionSource = NoRippleInteractionSource(),
                 shape = RoundedCornerShape(10),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = PrimaryContainer,
@@ -99,7 +117,7 @@ fun OnBoardingScreen(
                 ),
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
-                    .height(60.dp)
+                    .height(55.dp)
             ) {
 
                 Text(
