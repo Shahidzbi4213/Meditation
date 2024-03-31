@@ -32,9 +32,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gulehri.mediation.R
 import com.gulehri.mediation.ui.screens.destinations.OnBoardingScreenDestination
+import com.gulehri.mediation.ui.screens.destinations.SignInScreenDestination
+import com.gulehri.mediation.ui.screens.destinations.SignUpScreenDestination
 import com.gulehri.mediation.ui.theme.PrimaryContainer
 import com.gulehri.mediation.ui.theme.Typography
 import com.gulehri.mediation.ui.utils.Extensions.navigateNext
+import com.gulehri.mediation.ui.utils.Extensions.noRippleClickable
 import com.gulehri.mediation.ui.utils.NoRippleInteractionSource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -102,12 +105,12 @@ fun OnBoardingScreen(
 
             Button(
                 onClick = {
-                    /*navigator.navigateNext(
+                    navigator.navigateNext(
                         current = OnBoardingScreenDestination,
-                        next =,
+                        next = SignInScreenDestination,
                         canPopup = true,
                         inclusive = true
-                    )*/
+                    )
                 },
                 interactionSource = NoRippleInteractionSource(),
                 shape = RoundedCornerShape(10),
@@ -150,7 +153,16 @@ fun OnBoardingScreen(
                         color = Color.White
 
                     ),
-                    modifier = Modifier.padding(start = 4.dp)
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .noRippleClickable {
+                            navigator.navigateNext(
+                                current = OnBoardingScreenDestination,
+                                next = SignUpScreenDestination,
+                                canPopup = true,
+                                inclusive = true
+                            )
+                        }
                 )
             }
 

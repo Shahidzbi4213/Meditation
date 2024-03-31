@@ -5,6 +5,9 @@
       <entry key="OnBoardingScreen">
         <State />
       </entry>
+      <entry key="SignInScreen">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>
