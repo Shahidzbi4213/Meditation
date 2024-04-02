@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,12 +18,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.gulehri.mediation.R
 import com.gulehri.mediation.ui.theme.HintColor
 import com.gulehri.mediation.ui.theme.Typography
 
@@ -45,26 +45,33 @@ fun MediationTextField(
     labelTextStyle: TextStyle = Typography.bodySmall.copy(color = HintColor),
 ) {
 
+
     BasicTextField2(
         value = value,
         onValueChange = onChange,
-        modifier = modifier.wrapContentHeight(),
-        lineLimits = if (isSingleLine) TextFieldLineLimits.SingleLine else TextFieldLineLimits.MultiLine(),
+        modifier = modifier
+            .wrapContentHeight(),
+        lineLimits =
+        if (isSingleLine) TextFieldLineLimits.SingleLine else TextFieldLineLimits.MultiLine(),
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
             imeAction = imeAction
         ),
-        textStyle = textStyle,
-        decorator = {
+        textStyle = textStyle.copy(color = Color.White),
+        enabled = true,
+        cursorBrush = SolidColor(HintColor),
+        decorator = { innerField ->
             Column {
 
                 if (value.isEmpty())
                     Text(
                         text = labelText,
                         style = labelTextStyle,
-                        modifier = Modifier.padding(start = 5.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 5.dp)
                     )
-
+                else innerField()
                 Spacer(modifier = Modifier.height(10.dp))
 
                 HorizontalDivider(
@@ -73,6 +80,7 @@ fun MediationTextField(
                 )
             }
         }
+
     )
 }
 

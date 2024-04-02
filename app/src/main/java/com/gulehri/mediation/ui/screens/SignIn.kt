@@ -2,6 +2,7 @@ package com.gulehri.mediation.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,13 +19,20 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -39,7 +47,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gulehri.mediation.R
 import com.gulehri.mediation.ui.components.MediationSecureTextField
 import com.gulehri.mediation.ui.components.MediationTextField
-import com.gulehri.mediation.ui.screens.destinations.OnBoardingScreenDestination
 import com.gulehri.mediation.ui.screens.destinations.SignInScreenDestination
 import com.gulehri.mediation.ui.screens.destinations.SignUpScreenDestination
 import com.gulehri.mediation.ui.theme.HintColor
@@ -65,6 +72,11 @@ fun SignInScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val emailFocusRequest = remember {
+        FocusRequester.Default
+    }
+    val textSelectionColors =
+        TextSelectionColors(handleColor = HintColor, backgroundColor = HintColor)
 
     Box(
         modifier = Modifier
@@ -131,13 +143,23 @@ fun SignInScreen(
             Spacer(modifier = Modifier.height(40.dp))
 
 
+            CompositionLocalProvider(value = LocalTextSelectionColors provides textSelectionColors) {
+                MediationTextField(
+                    value = uiState.email,
+                    onChange = viewModel::updateEmail,
+                    labelText = stringResource(id = R.string.email_address),
+                    keyboardType = KeyboardType.Email,
+                    modifier = Modifier
+                        .clickable {
+                            emailFocusRequest.requestFocus()
+                        }
+                        .fillMaxWidth(0.95f)
+                        .padding(horizontal = 5.dp)
+                        .focusRequester(emailFocusRequest)
+                )
+            }
 
-            MediationTextField(
-                value = uiState.email, onChange = viewModel::updateEmail,
-                labelText = stringResource(id = R.string.email_address),
-                keyboardType = KeyboardType.Email,
-                modifier = Modifier.fillMaxWidth(0.9f)
-            )
+
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -145,7 +167,8 @@ fun SignInScreen(
                 value = uiState.password,
                 onChange = viewModel::updatePassword,
                 labelText = stringResource(id = R.string.password),
-                modifier = Modifier.fillMaxWidth(0.9f),
+                modifier = Modifier
+                    .fillMaxWidth(0.9f),
             )
 
             Spacer(modifier = Modifier.height(15.dp))
