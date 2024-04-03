@@ -29,15 +29,17 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -45,8 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gulehri.mediation.R
-import com.gulehri.mediation.ui.components.MediationSecureTextField
-import com.gulehri.mediation.ui.components.MediationTextField
+import com.gulehri.mediation.ui.components.MeditationTextField
 import com.gulehri.mediation.ui.screens.destinations.SignInScreenDestination
 import com.gulehri.mediation.ui.screens.destinations.SignUpScreenDestination
 import com.gulehri.mediation.ui.theme.HintColor
@@ -64,6 +65,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
  */
 
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Destination
 @Composable
 fun SignInScreen(
@@ -72,16 +74,20 @@ fun SignInScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val emailFocusRequest = remember {
-        FocusRequester.Default
-    }
     val textSelectionColors =
         TextSelectionColors(handleColor = HintColor, backgroundColor = HintColor)
+    val focusRequester = remember {
+        FocusRequester()
+    }
+    val softKeyboardController = LocalSoftwareKeyboardController.current
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MainColor)
+            .noRippleClickable {
+                softKeyboardController?.hide()
+            }
     ) {
 
         Image(
@@ -144,18 +150,14 @@ fun SignInScreen(
 
 
             CompositionLocalProvider(value = LocalTextSelectionColors provides textSelectionColors) {
-                MediationTextField(
+                MeditationTextField(
                     value = uiState.email,
                     onChange = viewModel::updateEmail,
                     labelText = stringResource(id = R.string.email_address),
                     keyboardType = KeyboardType.Email,
                     modifier = Modifier
-                        .clickable {
-                            emailFocusRequest.requestFocus()
-                        }
                         .fillMaxWidth(0.95f)
                         .padding(horizontal = 5.dp)
-                        .focusRequester(emailFocusRequest)
                 )
             }
 
@@ -163,12 +165,15 @@ fun SignInScreen(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            MediationSecureTextField(
+            MeditationTextField(
                 value = uiState.password,
                 onChange = viewModel::updatePassword,
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Password,
                 labelText = stringResource(id = R.string.password),
                 modifier = Modifier
-                    .fillMaxWidth(0.9f),
+                    .fillMaxWidth(0.95f)
+                    .padding(horizontal = 5.dp),
             )
 
             Spacer(modifier = Modifier.height(15.dp))

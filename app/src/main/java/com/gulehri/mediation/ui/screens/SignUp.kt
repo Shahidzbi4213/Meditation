@@ -38,14 +38,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gulehri.mediation.R
-import com.gulehri.mediation.ui.components.MediationSecureTextField
-import com.gulehri.mediation.ui.components.MediationTextField
+import com.gulehri.mediation.ui.components.MeditationTextField
 import com.gulehri.mediation.ui.theme.HintColor
 import com.gulehri.mediation.ui.theme.MainColor
 import com.gulehri.mediation.ui.theme.PrimaryContainer
@@ -58,7 +57,6 @@ import com.ramcosta.composedestinations.annotation.Destination
  */
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Destination
 @Composable
 fun SignUpScreen() {
@@ -140,7 +138,8 @@ fun SignUpScreen() {
             Spacer(modifier = Modifier.height(40.dp))
 
 
-            MediationTextField(value = name, onChange = { name = it },
+            MeditationTextField(
+                value = name, onChange = { name = it },
                 labelText = stringResource(id = R.string.name),
                 keyboardType = KeyboardType.Text,
                 modifier = Modifier.fillMaxWidth(0.9f)
@@ -148,16 +147,18 @@ fun SignUpScreen() {
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            MediationTextField(
+            MeditationTextField(
                 value = email, onChange = { email = it },
                 labelText = stringResource(id = R.string.email_address),
                 keyboardType = KeyboardType.Email,
                 modifier = Modifier.fillMaxWidth(0.9f)
             )
 
-            MediationSecureTextField(
+            MeditationTextField(
                 value = password,
                 onChange = { password = it },
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Password,
                 labelText = stringResource(id = R.string.password),
                 modifier = Modifier.fillMaxWidth(0.9f),
             )
